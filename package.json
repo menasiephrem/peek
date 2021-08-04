@@ -11,6 +11,8 @@
     "dev": "nodemon src/app.js"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cloudinary": "^1.26.3",
     "express": "^4.17.1",
     "puppeteer": "^10.1.0",
     "puppeteer-screen-recorder": "^1.1.11"
