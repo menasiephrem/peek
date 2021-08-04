@@ -3,6 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const puppeteer = require('puppeteer');
 const cloudinary = require('cloudinary').v2;
+const log = require('simple-node-logger').createSimpleLogger();
 const { PuppeteerScreenRecorder } = require('puppeteer-screen-recorder');
 const app = express()
 const port = process.env.PORT || 4000
@@ -27,7 +28,7 @@ app.post('/recordLink', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  log.info(`Example app listening at http://localhost:${port}`)
 })
 
 const recordLink = async (link, res) => {
@@ -38,20 +39,25 @@ const recordLink = async (link, res) => {
       '--disable-setuid-sandbox',
     ]
   });
+  log.info("Browser open");
   const page = await browser.newPage();
   const recorder = new PuppeteerScreenRecorder(page);
-  await recorder.start('./video/simple.mp4'); // video must have .mp4 has an extension.
   await page.goto(link);
-
+  log.info("page Loaded");
+  await recorder.start('./video/simple.mp4'); // video must have .mp4 has an extension.
+  log.info("record started");
   setTimeout(async () => {
+    await recorder.stop();
+    await browser.close();
+    log.info("upload started");
     cloudinary.uploader.upload('./video/simple.mp4',
         { resource_type: "video", 
         public_id: `peek/peekVideo/${new Date().getTime()}`,
         chunk_size: 6000000, },
     async (err, result) => {
-        await recorder.stop();
+        log.info("upload done");
         res.json({stats:'ok', url: result.url})
-        await browser.close();
+
     }); 
   }, 3000)
 }

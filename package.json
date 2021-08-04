@@ -15,7 +15,8 @@
     "cloudinary": "^1.26.3",
     "express": "^4.17.1",
     "puppeteer": "^10.1.0",
-    "puppeteer-screen-recorder": "^1.1.11"
+    "puppeteer-screen-recorder": "^1.1.11",
+    "simple-node-logger": "^18.12.24"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
