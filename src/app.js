@@ -47,7 +47,7 @@ const recordLink = async (link, res) => {
     cloudinary.uploader.upload('./video/simple.mp4',
         { resource_type: "video", 
         public_id: `peek/peekVideo/${new Date().getTime()}`,
-        chunk_size: 6000000 },
+        chunk_size: 6000000, },
     async (err, result) => {
         await recorder.stop();
         res.json({stats:'ok', url: result.url})
