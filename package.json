@@ -1,0 +1,21 @@
+{
+  "name": "peek",
+  "version": "1.0.0",
+  "description": "Peek to links",
+  "main": "app.js",
+  "author": "Menasi",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "puppeteer": "^10.1.0",
+    "puppeteer-screen-recorder": "^1.1.11"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
