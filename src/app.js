@@ -31,7 +31,13 @@ app.listen(port, () => {
 })
 
 const recordLink = async (link, res) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ]
+  });
   const page = await browser.newPage();
   const recorder = new PuppeteerScreenRecorder(page);
   await recorder.start('./video/simple.mp4'); // video must have .mp4 has an extension.
